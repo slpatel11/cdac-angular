@@ -1,0 +1,177 @@
+
+<p  *ngIf="msg" class="errors">{{msg}}</p>
+
+
+<!DOCTYPE html>
+<html>
+<title>Online Automated Placement Management System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
+  <span class="w3-bar-item w3-left" routerLink="home" >Online Automated Placement Management System</span>
+</div>
+
+<p  *ngIf="msg" class="errors" style=" margin-top: 10px;">{{msg}}</p>
+<div class="login-page">
+    <mat-card class="mat-elevation-z12">
+      <mat-card-title style="text-align:center;">SignIn/SignUp</mat-card-title>
+      <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+        <mat-tab label="Sign In">
+            <mat-card-content>
+              <form action="" method="POST">
+                <mat-form-field>
+                  <input matInput placeholder="Email" required name="email" ngModel #email="ngModel" [(ngModel)]="user.emailId">
+                    <mat-error *ngIf="email.invalid">Email is required</mat-error>
+                  <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Password" type="password" required minlength="4" name="pasng servesword" ngModel  #password="ngModel" [(ngModel)]="user.password">
+                    <mat-error *ngIf="password.errors && password.errors.required"> Password is required</mat-error>
+                    <mat-error *ngIf="password.errors && password.errors.minlength">Password must be of length 4</mat-error>
+                  <mat-icon matSuffix>lock</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Role</mat-label>
+                    <mat-select [(ngModel)]="selected" name="role">
+                      <mat-option *ngFor="let role of roles" [value]="role.value">
+                        {{role.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                <mat-checkbox>Remember Me!</mat-checkbox>
+                <button  mat-raised-button class="login-button"  (click)="authentication()"  color="primary">Login</button>
+              </form>
+            </mat-card-content>
+        </mat-tab>
+        <mat-tab label="Sign Up">
+          <mat-card-content>
+            <form action="">
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="User Name"
+                  required
+                  name="username"
+                  ngModel
+                  #username="ngModel" [(ngModel)]="user.name">
+                <mat-icon matSuffix>perm_identity</mat-icon>
+                <mat-error
+                  *ngIf="username.invalid">
+                  Username is required
+                </mat-error>
+  
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Email"
+                  required
+                  name="email"
+                  ngModel
+                  #email="ngModel" [(ngModel)]="user.emailId">
+                  <mat-error *ngIf="email.invalid">Email is required</mat-error>
+                <mat-icon matSuffix>email</mat-icon>
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  placeholder="Password"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="password"
+                  ngModel
+                  #password="ngModel" [(ngModel)]="user.password">
+                  <mat-error
+                    *ngIf="password.errors && password.errors.required">
+                    Password is required
+                  </mat-error>
+                  <mat-error
+                    *ngIf="password.errors && password.errors.minlength">
+                    Password must be of length 6
+                  </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+  
+              </mat-form-field>
+              <mat-form-field>
+                  <input
+                  matInput
+                  placeholder="Password"
+                  type="password"
+                  required
+                  minlength="6"
+                  name="repassword"
+                  ngModel
+                  #repassword="ngModel" [(ngModel)]="rpassword">
+                  <mat-error
+                    *ngIf="repassword.errors && repassword.errors.required">
+                    Re-Enter Password is required
+                  </mat-error>
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Role</mat-label>
+                <mat-select [(ngModel)]="selected" name="role">
+                  <mat-option *ngFor="let role of roles" [value]="role.value">
+                    {{role.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <button
+                mat-raised-button
+                color="primary"
+                class="login-button" (click)="register()">
+                Sign Up
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
+  <div>
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>FOOTER</h4>
+    <p>Powered by <a href="https://localhost:4200/home" target="_blank">OAPMS.Com</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
